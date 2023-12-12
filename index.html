@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Redirect Page Generator</title>
+    <style>
+        body {
+            text-align: center; /* 中央揃え */
+            font-family: Arial, sans-serif;
+        }
+        .textbox-container {
+            margin-bottom: 10px;
+        }
+        .url-input {
+            width: 300px; /* テキストボックスの横幅 */
+        }
+        #container {
+            display: inline-block; /* コンテナを中央揃えのためのインラインブロックにする */
+            text-align: left; /* コンテナ内の要素は左揃え */
+        }
+			#footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: small;
+            color: gray;
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h3>Please enter the URLs for random redirect</h3> <!-- タイトルテキスト -->
+        <div id="textbox-area">
+            <div class="textbox-container"><input type="text" class="url-input"></div>
+            <div class="textbox-container"><input type="text" class="url-input"></div>
+        </div>
+        <button id="add-button">Add</button>
+        <button id="generate-button">Generate</button>
+    </div>
+				
+	<div id="footer">
+        <a href="https://httrksk.github.io/" target="_blank"> (c) Keisuke Hattori, 2023</a>
+    </div>
+
+    <script>
+        document.getElementById('add-button').addEventListener('click', function() {
+            var newTextboxContainer = document.createElement('div');
+            newTextboxContainer.className = 'textbox-container';
+            var newTextbox = document.createElement('input');
+            newTextbox.type = 'text';
+            newTextbox.className = 'url-input';
+            newTextboxContainer.appendChild(newTextbox);
+            document.getElementById('textbox-area').appendChild(newTextboxContainer);
+        });
+
+        document.getElementById('generate-button').addEventListener('click', function() {
+            var urls = Array.from(document.getElementsByClassName('url-input'))
+                            .map(input => input.value.trim())
+                            .filter(url => url !== '');
+
+            var redirectPage = createRedirectPage(urls);
+            var blob = new Blob([redirectPage], {type: 'text/html'});
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'random_redirect.html';
+            link.click();
+        });
+
+        function createRedirectPage(urls) {
+            var urlsArrayString = urls.map(url => JSON.stringify(url)).join(',');
+            return '<!DOCTYPE html><html><body><script>window.onload=function(){var urls=[' 
+            + urlsArrayString 
+            + ']; var n=Math.floor(Math.random()*urls.length); location.href=urls[n];}<\/script></body></html>';
+        }
+    </script>
+</body>
+</html>
