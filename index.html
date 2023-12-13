@@ -17,28 +17,17 @@
             display: inline-block; /* コンテナを中央揃えのためのインラインブロックにする */
             text-align: left; /* コンテナ内の要素は左揃え */
         }
-			#footer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-            font-size: small;
-            color: gray;
     </style>
 </head>
 <body>
     <div id="container">
         <h3>Enter the URLs for random redirect</h3> <!-- タイトルテキスト -->
         <div id="textbox-area">
-            <div class="textbox-container"><input type="text" class="url-input"></div>
-            <div class="textbox-container"><input type="text" class="url-input"></div>
+            <div class="textbox-container"><input type="text" class="url-input" value="https://www.yahoo.com/"></div>
+            <div class="textbox-container"><input type="text" class="url-input" value="https://www.google.com/"></div>
         </div>
         <button id="add-button">Add</button>
         <button id="generate-button">Generate</button>
-    </div>
-				
-	<div id="footer">
-        <a href="https://httrksk.github.io/" target="_blank"> (c) Keisuke Hattori, 2023</a>
     </div>
 
     <script>
